@@ -12,7 +12,6 @@ const configuration = new Configuration({
   
   const openai = new OpenAIApi(configuration);
   
-
 router.route("/").get((req, res) => {
     res.send("hello from brad");
 });
@@ -34,7 +33,8 @@ router.route('/').post( async(req, res) => {
             res.status(200).json({ photo: image});
 
     }catch(error){
-        console.log(error);
+        console.log(
+            or);
         res.status(500).send(error?.response.data.error.message)
 
     }

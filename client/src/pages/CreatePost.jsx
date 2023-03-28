@@ -17,13 +17,43 @@ const CreatePost = () => {
     photo: '',
   });
 
+
+
+
+
+
+
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
-  const handleSubmit = () => {
- 
-  
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (form.prompt && form.photo) {
+      setLoading(true);
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ...form }),
+        });
+
+        await response.json();
+
+        navigate('/');
+      } catch (err) {
+        alert(err);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      alert('Please generate an image with proper details');
+    }
   };
+
+
   const generateImage = async () => {
     if (form.prompt) {
       try {
@@ -40,7 +70,7 @@ const CreatePost = () => {
 
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
-      } catch (err) {
+      } catch (eror) {
         alert(err);
       } finally {
         setGeneratingImg(false);
@@ -83,7 +113,7 @@ const CreatePost = () => {
             labelName="Prompt"
             type="text"
             name="prompt"
-            placeholder="An Impressionist oil painting of sunflowers in a purple vase…"
+            placeholder="A dude from among US being dumb…"
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
