@@ -113,7 +113,7 @@ const CreatePost = () => {
             labelName="Prompt"
             type="text"
             name="prompt"
-            placeholder="A dude from among US being dumb…"
+            placeholder="A dude from among US…"
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
